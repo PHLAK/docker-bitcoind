@@ -13,17 +13,23 @@ First create some named data volumes to hold the persistent data:
     docker volume create --name bitcoind-config
     docker volume create --name bitcoind-data
 
-Next you must create your `bitcoin.conf` file:
+Now you must create your `bitcoin.conf` file. First you will need to generate an
+rpcauth string:
+
+    docker run -it --rm phlak/bitcoind rpcuser <user>
+
+**NOTE:** Replace `<user>` with your desired username.
+
+The output of this command will be used in your configuration file. Create the
+configuration file with the following:
 
     docker run -it --rm -v bitcoind-config:/vol/config phlak/bitcoind vi /vol/config/bitcoin.conf
 
 Use the following template for your configuration:
 
-    # Username for JSON-RPC connections
-    rpcuser=<user>
-
-    # Password for JSON-RPC connections
-    rpcpassword=<pass>
+    # Username and hashed password for JSON-RPC connections.
+    # Use the rpcauth string returned from the the command above.
+    rpcauth=<rpcauth_string>
 
     # Allow JSON-RPC connections from specified source. Valid values are a
     # single IP (1.2.3.4), a network/netmask (1.2.3.4/255.255.255.0) or a
