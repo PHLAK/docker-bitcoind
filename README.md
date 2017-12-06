@@ -37,6 +37,15 @@ Use the following template for your configuration:
     rpcallowip=127.0.0.1
     rpcallowip=<ip>
 
+    # Reduce storage requirements by enabling pruning (deleting) of old blocks.
+    # This allows the pruneblockchain RPC to be called to delete specific blocks,
+    # and enables automatic pruning of old blocks if a target size in MiB is
+    # provided. This mode is incompatible with -txindex and -rescan.
+    # Warning: Reverting this setting requires re-downloading the entire blockchain.
+    # (default: 0 = disabled, 1 = allow manual pruning via RPC, >550 = automatically
+    # prune block files to stay under the specified target size in MiB)
+    prune=1000
+
 Then run the Bitcoin daemon:
 
     docker run -d -p 8332:8332 -p 8333:8333 -p 8333:8333/udp -v bitcoind-config:/vol/config -v bitcoind-data:/vol/data --name bitcoind phlak/bitcoind
