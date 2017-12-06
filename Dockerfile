@@ -1,8 +1,9 @@
-FROM alpine:3.6
+FROM alpine:3.7
 MAINTAINER Chris Kankiewicz <Chris@ChrisKankiewicz.com>
 
 # Define Bitcoin version
-ARG BTC_VERSION=0.14.1
+ARG BTC_VERSION=0.15.1
+ARG APK_REVISION=r0
 
 # Create non-root user
 RUN adduser -Ds /sbin/nologin bitcoin
@@ -15,7 +16,7 @@ RUN chown bitcoin:bitcoin /vol/config /vol/data
 ARG RPCUSER_SCRIPT_URL=https://raw.githubusercontent.com/bitcoin/bitcoin/v${BTC_VERSION}/share/rpcuser/rpcuser.py
 
 # Install bitcoin and dependencies
-RUN apk add --update ca-certificates bitcoin=${BTC_VERSION}-r1 python tzdata wget \
+RUN apk add --update ca-certificates bitcoin=${BTC_VERSION}-${APK_REVISION} python tzdata wget \
     && wget ${RPCUSER_SCRIPT_URL} -O /usr/local/bin/rpcuser \
     && chmod +x /usr/local/bin/rpcuser \
     && apk del ca-certificates wget && rm -rf /var/cache/apk/*
