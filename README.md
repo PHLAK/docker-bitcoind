@@ -16,7 +16,7 @@ First create some named data volumes to hold the persistent data:
 Now you must create your `bitcoin.conf` file. First you will need to generate an
 rpcauth string:
 
-    docker run -it --rm phlak/bitcoind rpcuser <user>
+    docker run -it --rm phlak/bitcoind rpcauth <user>
 
 **NOTE:** Replace `<user>` with your desired username.
 
