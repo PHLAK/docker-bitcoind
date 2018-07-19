@@ -19,7 +19,8 @@ ARG RPCUSER_SCRIPT_URL=https://raw.githubusercontent.com/bitcoin/bitcoin/v${BTC_
 RUN apk add --update ca-certificates bitcoin=${BTC_VERSION}-${APK_REVISION} python tzdata wget \
     && wget ${RPCUSER_SCRIPT_URL} -O /usr/local/bin/rpcauth \
     && chmod +x /usr/local/bin/rpcauth \
-    && apk del ca-certificates wget && rm -rf /var/cache/apk/*
+    && apk del ca-certificates wget && rm -rf /var/cache/apk/* \
+    && rm /etc/bitcoin.conf
 
 # Expose ports
 EXPOSE 8332 8333 8333/udp
