@@ -1,9 +1,9 @@
-FROM alpine:3.8
+FROM alpine:3.9
 MAINTAINER Chris Kankiewicz <Chris@ChrisKankiewicz.com>
 
 # Define Bitcoin version
-ARG BTC_VERSION=0.16.1
-ARG APK_REVISION=r2
+ARG BTC_VERSION=0.17.0.1
+ARG APK_REVISION=r0
 
 # Create non-root user
 RUN adduser -Ds /sbin/nologin bitcoin
